@@ -12,10 +12,18 @@ const initialState: UIState = {
 export const UIProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(uiReducer, initialState);
 
+  const toggleSidebar = () => {
+    const { isSidebarOpen } = state;
+
+    if (!isSidebarOpen) dispatch({ type: "UI - Open Sidebar" });
+    else dispatch({ type: "UI - Close Sidebar" });
+  };
+
   return (
     <UIContext.Provider
       value={{
-        isSidebarOpen: false,
+        ...state,
+        toggleSidebar,
       }}
     >
       {children}
