@@ -3,10 +3,12 @@ import { uiReducer, UIContext } from "./";
 
 export interface UIState {
   isSidebarOpen: boolean;
+  isAddingEntry: boolean;
 }
 
 const initialState: UIState = {
   isSidebarOpen: false,
+  isAddingEntry: false,
 };
 
 export const UIProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -19,11 +21,15 @@ export const UIProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
     else dispatch({ type: "UI - Close Sidebar" });
   };
 
+  const toggleIsAddingEntry = () =>
+    dispatch({ type: "UI - Toggle adding entry" });
+
   return (
     <UIContext.Provider
       value={{
         ...state,
         toggleSidebar,
+        toggleIsAddingEntry,
       }}
     >
       {children}

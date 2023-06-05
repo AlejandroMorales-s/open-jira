@@ -12,19 +12,25 @@ const initialState: EntriesState = {
     {
       _id: uuidv4(),
       createdAt: Date.now(),
-      description: "test",
+      description: "Pending",
       status: "pending",
     },
     {
       _id: uuidv4(),
       createdAt: Date.now(),
-      description: "test2",
+      description: "In progress",
       status: "in-progress",
     },
     {
       _id: uuidv4(),
       createdAt: Date.now(),
-      description: "test2",
+      description: "Finished",
+      status: "finished",
+    },
+    {
+      _id: uuidv4(),
+      createdAt: Date.now(),
+      description: "Finished",
       status: "finished",
     },
   ],
@@ -35,10 +41,22 @@ export const EntriesProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const [state, dispatch] = useReducer(entriesReducer, initialState);
 
+  const addNewEntry = ({ description }: { description: string }) => {
+    const newEntry: Entry = {
+      _id: uuidv4(),
+      description,
+      createdAt: Date.now(),
+      status: "pending",
+    };
+
+    dispatch({ type: "[Entry] Add-Entry", payload: newEntry });
+  };
+
   return (
     <EntriesContext.Provider
       value={{
         ...state,
+        addNewEntry,
       }}
     >
       {children}
