@@ -2,9 +2,13 @@ import { createContext } from "react";
 
 interface UIContextProps {
   isSidebarOpen: boolean;
+  isAddingEntry: boolean;
+  isDragging: boolean;
+
+  //* Methods
   toggleSidebar: () => void;
   toggleIsAddingEntry: () => void;
-  isAddingEntry: boolean;
+  toggleIsDragging: () => void;
 }
 
 export const UIContext = createContext<UIContextProps>({} as UIContextProps);
